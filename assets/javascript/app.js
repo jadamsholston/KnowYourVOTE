@@ -25,5 +25,4 @@ var baseURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 var searchTerms;    
 
 // GOVTRACKS queryURL
-
 var govURL = "https://www.govtrack.us/api/v2/role?current=true";    
