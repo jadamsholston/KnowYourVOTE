@@ -76,8 +76,10 @@ var usStates = [
 ];
 usStates.forEach(function(node){
     //COO - populate state ddlb here.
-    console.log(node["text"]);
-    console.log(node["value"])
+    var option = $("<option>");
+    option.text(node["text"]);
+    option.val(node["value"])
+    $("#stateSearch").append(option);
 })
 
 // GOVTRACKS queryURL
@@ -85,8 +87,8 @@ var govURL = "https://www.govtrack.us/api/v2/role?current=true";
 
 // News API queryURL
 var newsBaseURL = "https://newsapi.org/v2/everything?q=", 
-    stateParams = usStates[0]["value"], 
+    stateParams = $("#stateSearch").val(), 
     repParams ; // need to determine
-
+    console.log(stateParams)
 
 
