@@ -85,7 +85,7 @@ var govURL = "https://www.govtrack.us/api/v2/role?current=true";
 
 // News API queryURL
 var newsBaseURL = "https://newsapi.org/v2/everything?q=", 
-    stateParams = node["text"], 
+    stateParams = usStates[0]["value"], 
     repParams ; // need to determine
 
 
