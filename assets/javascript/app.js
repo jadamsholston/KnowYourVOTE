@@ -14,67 +14,67 @@ var database = firebase.database();
 
 //COO add an array of states with their abbreviations (value) and their full names (text)
 var usStates = [
-    { text: 'ALABAMA', value: 'AL'},
-    { text: 'ALASKA', value: 'AK'},
-    { text: 'AMERICAN SAMOA', value: 'AS'},
-    { text: 'ARIZONA', value: 'AZ'},
-    { text: 'ARKANSAS', value: 'AR'},
-    { text: 'CALIFORNIA', value: 'CA'},
-    { text: 'COLORADO', value: 'CO'},
-    { text: 'CONNECTICUT', value: 'CT'},
-    { text: 'DELAWARE', value: 'DE'},
-    { text: 'DISTRICT OF COLUMBIA', value: 'DC'},
-    { text: 'FEDERATED STATES OF MICRONESIA', value: 'FM'},
-    { text: 'FLORIDA', value: 'FL'},
-    { text: 'GEORGIA', value: 'GA'},
-    { text: 'GUAM', value: 'GU'},
-    { text: 'HAWAII', value: 'HI'},
-    { text: 'IDAHO', value: 'ID'},
-    { text: 'ILLINOIS', value: 'IL'},
-    { text: 'INDIANA', value: 'IN'},
-    { text: 'IOWA', value: 'IA'},
-    { text: 'KANSAS', value: 'KS'},
-    { text: 'KENTUCKY', value: 'KY'},
-    { text: 'LOUISIANA', value: 'LA'},
-    { text: 'MAINE', value: 'ME'},
-    { text: 'MARSHALL ISLANDS', value: 'MH'},
-    { text: 'MARYLAND', value: 'MD'},
-    { text: 'MASSACHUSETTS', value: 'MA'},
-    { text: 'MICHIGAN', value: 'MI'},
-    { text: 'MINNESOTA', value: 'MN'},
-    { text: 'MISSISSIPPI', value: 'MS'},
-    { text: 'MISSOURI', value: 'MO'},
-    { text: 'MONTANA', value: 'MT'},
-    { text: 'NEBRASKA', value: 'NE'},
-    { text: 'NEVADA', value: 'NV'},
-    { text: 'NEW HAMPSHIRE', value: 'NH'},
-    { text: 'NEW JERSEY', value: 'NJ'},
-    { text: 'NEW MEXICO', value: 'NM'},
-    { text: 'NEW YORK', value: 'NY'},
-    { text: 'NORTH CAROLINA', value: 'NC'},
-    { text: 'NORTH DAKOTA', value: 'ND'},
-    { text: 'NORTHERN MARIANA ISLANDS', value: 'MP'},
-    { text: 'OHIO', value: 'OH'},
-    { text: 'OKLAHOMA', value: 'OK'},
-    { text: 'OREGON', value: 'OR'},
-    { text: 'PALAU', value: 'PW'},
-    { text: 'PENNSYLVANIA', value: 'PA'},
-    { text: 'PUERTO RICO', value: 'PR'},
-    { text: 'RHODE ISLAND', value: 'RI'},
-    { text: 'SOUTH CAROLINA', value: 'SC'},
-    { text: 'SOUTH DAKOTA', value: 'SD'},
-    { text: 'TENNESSEE', value: 'TN'},
-    { text: 'TEXAS', value: 'TX'},
-    { text: 'UTAH', value: 'UT'},
-    { text: 'VERMONT', value: 'VT'},
-    { text: 'VIRGIN ISLANDS', value: 'VI'},
-    { text: 'VIRGINIA', value: 'VA'},
-    { text: 'WASHINGTON', value: 'WA'},
-    { text: 'WEST VIRGINIA', value: 'WV'},
-    { text: 'WISCONSIN', value: 'WI'},
+    { text: 'ALABAMA', value: 'AL' },
+    { text: 'ALASKA', value: 'AK' },
+    { text: 'AMERICAN SAMOA', value: 'AS' },
+    { text: 'ARIZONA', value: 'AZ' },
+    { text: 'ARKANSAS', value: 'AR' },
+    { text: 'CALIFORNIA', value: 'CA' },
+    { text: 'COLORADO', value: 'CO' },
+    { text: 'CONNECTICUT', value: 'CT' },
+    { text: 'DELAWARE', value: 'DE' },
+    { text: 'DISTRICT OF COLUMBIA', value: 'DC' },
+    { text: 'FEDERATED STATES OF MICRONESIA', value: 'FM' },
+    { text: 'FLORIDA', value: 'FL' },
+    { text: 'GEORGIA', value: 'GA' },
+    { text: 'GUAM', value: 'GU' },
+    { text: 'HAWAII', value: 'HI' },
+    { text: 'IDAHO', value: 'ID' },
+    { text: 'ILLINOIS', value: 'IL' },
+    { text: 'INDIANA', value: 'IN' },
+    { text: 'IOWA', value: 'IA' },
+    { text: 'KANSAS', value: 'KS' },
+    { text: 'KENTUCKY', value: 'KY' },
+    { text: 'LOUISIANA', value: 'LA' },
+    { text: 'MAINE', value: 'ME' },
+    { text: 'MARSHALL ISLANDS', value: 'MH' },
+    { text: 'MARYLAND', value: 'MD' },
+    { text: 'MASSACHUSETTS', value: 'MA' },
+    { text: 'MICHIGAN', value: 'MI' },
+    { text: 'MINNESOTA', value: 'MN' },
+    { text: 'MISSISSIPPI', value: 'MS' },
+    { text: 'MISSOURI', value: 'MO' },
+    { text: 'MONTANA', value: 'MT' },
+    { text: 'NEBRASKA', value: 'NE' },
+    { text: 'NEVADA', value: 'NV' },
+    { text: 'NEW HAMPSHIRE', value: 'NH' },
+    { text: 'NEW JERSEY', value: 'NJ' },
+    { text: 'NEW MEXICO', value: 'NM' },
+    { text: 'NEW YORK', value: 'NY' },
+    { text: 'NORTH CAROLINA', value: 'NC' },
+    { text: 'NORTH DAKOTA', value: 'ND' },
+    { text: 'NORTHERN MARIANA ISLANDS', value: 'MP' },
+    { text: 'OHIO', value: 'OH' },
+    { text: 'OKLAHOMA', value: 'OK' },
+    { text: 'OREGON', value: 'OR' },
+    { text: 'PALAU', value: 'PW' },
+    { text: 'PENNSYLVANIA', value: 'PA' },
+    { text: 'PUERTO RICO', value: 'PR' },
+    { text: 'RHODE ISLAND', value: 'RI' },
+    { text: 'SOUTH CAROLINA', value: 'SC' },
+    { text: 'SOUTH DAKOTA', value: 'SD' },
+    { text: 'TENNESSEE', value: 'TN' },
+    { text: 'TEXAS', value: 'TX' },
+    { text: 'UTAH', value: 'UT' },
+    { text: 'VERMONT', value: 'VT' },
+    { text: 'VIRGIN ISLANDS', value: 'VI' },
+    { text: 'VIRGINIA', value: 'VA' },
+    { text: 'WASHINGTON', value: 'WA' },
+    { text: 'WEST VIRGINIA', value: 'WV' },
+    { text: 'WISCONSIN', value: 'WI' },
     { text: 'WYOMING', value: 'WY' }
 ];
-usStates.forEach(function(node){
+usStates.forEach(function (node) {
     //COO - populate state ddlb here.
     var option = $("<option>");
     option.text(node["text"]);
@@ -82,27 +82,50 @@ usStates.forEach(function(node){
     $("#stateSearch").append(option);
 })
 
-// GOVTRACKS queryURL
- 
 
-var getInformation = function () {
-    var path = "https://www.govtrack.us/api/v2/role?current=true";
-  
+// Google Civic API QueryURL
+$('#run-search').on('click', function () {
+    event.preventDefault();
+
+    var civicBaseURL = "https://www.googleapis.com/civicinfo/v2/representatives?key=",
+        civicKey = "AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8",
+        params = "&address=",
+        address = $('#address-search').val().trim();
+
+    var civicURL = civicBaseURL + civicKey + params + address;
+
+    console.log(civicURL);
+
     $.ajax({
-        url: path,
-        async: false,
-        dataType: 'json',
-        success: function (data) {
-            $.each(response);
-        }
-    });
- 
-}
+        url: civicURL,
+        method: "GET"
+    }).then(function (civicResponse) {
 
+        // need to create loop functions for each item we want to loop through. 
+
+
+        console.log(civicResponse);
+        console.log(civicResponse.normalizedInput.state);
+        console.log(civicResponse.officials[0].name);
+
+        // This is example of what we can do inside the html, but we can discuss. 
+        $('#representatives-row').append("<tr><td>" + civicResponse.normalizedInput.state + "</td><td>" + civicResponse.offices[0].name + "</td><td>" + civicResponse.officials[0].name + "</td><td>" + civicResponse.officials[0].party + "</td><td>" + civicResponse.officials[0].urls + "</td></tr>");
+
+    });
+});
 // News API queryURL
-var newsBaseURL = "https://newsapi.org/v2/everything?q=", 
-    stateParams = $("#stateSearch").val(), 
-    repParams ; // need to determine
-    console.log(stateParams)
+var newsBaseURL = "https://newsapi.org/v2/everything?q=",
+    stateParams = civicResponse.normalizedInput.state,
+    repParams = civicResponse.officials[0].name; // need we will need to run a loop to ensure this works.
+
+var newsURL = newsBaseURL + stateParams + repParams;
+
+$.ajax({
+    url: newsURL,
+    method: "GET"
+}).then(function (newsResponse) {
+
+    console.log(newsResponse);
+});
 
 
