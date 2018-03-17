@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Know Your Vote</title>
+
     <!-- Bootswatch Styling for Improving the Aesthetics -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css">
-
     <!-- Font Awesome CSS Icons (For cool glyphicons) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
 
 </head>
 
@@ -18,7 +19,8 @@
     <div class="container">
 
         <!-- Jumbotron for Title -->
-        <div class="jumbotron" style="background-color: gray; color: white;">
+        <div class="bg"></div>
+        <div class="jumbotron">
             <h1 class="text-center">
                 <strong>Know Your Vote</strong>
                 <h4 style="text-align: center">Learn about your state's government representatives</h4>
@@ -30,11 +32,10 @@
             <div class="col-sm-12">
                 <br>
                 <!-- First panel is for handling the search parameters -->
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
+                <div class="panel" id="titleBox">
+                    <div class="panel-heading" >
                         <h3 class="panel-title">
-                            <strong>
-                                Search by State</strong>
+                            <strong>Search by State</strong>
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -93,9 +94,7 @@
                                     <option>West Virginia</option>
                                     <option>Wisconsin</option>
                                     <option>Wyoming</option>
-                                    </select>
-
-                                    
+                                </select>                                    
                             </div>
                             <button type="submit" class="btn btn-default" id="run-search">
                                 <i class="fa fa-search"></i> Search</button>
@@ -109,11 +108,10 @@
         <div class="row">
             <div class="col-sm-6">
                 <br>
-                <div class="panel panel-primary">
+                <div class="panel" id="titleBox">
                     <div class="panel-heading">
                         <h3 class="panel-title" style="text-align: center">
-                            <strong>
-                                Representatives</strong>
+                            <strong>Representatives</strong>
                         </h3>
                     </div>
                 </div>
@@ -121,12 +119,12 @@
             <div class="row">
                 <div class="col-sm-6">
                     <br>
-                    <div class="panel panel-primary">
+                    <div class="panel" id="titleBox">
                         <div class="panel-heading">
                             <h3 class="panel-title" style="text-align: center">
-                                <strong>
-                                    Articles about your Representatives</strong>
+                                <strong>Articles about your Representatives</strong>
                             </h3>
+                            <textarea name="" id="" cols="30" rows="10"></textarea>
                         </div>
                     </div>
                 </div>
