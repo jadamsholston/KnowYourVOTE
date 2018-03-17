@@ -12,21 +12,6 @@ firebase.initializeApp(config);
 // Create a variable to reference the database
 var database = firebase.database();
 
-//
-
-
-// NYTIMES queryURL
-var baseURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-
-    // add the api key parameter (the one we received when we registered)   
-    baseURL += "?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-
-    // grab text the user typed into the search input, add as parameter to url
-var searchTerms;    
-
-// GOVTRACKS queryURL
-var govURL = "https://www.govtrack.us/api/v2/role?current=true";    
-
 //COO add an array of states with their abbreviations (value) and their full names (text)
 var usStates = [
     { text: 'ALABAMA', value: 'AL'},
@@ -94,3 +79,14 @@ usStates.forEach(function(node){
     console.log(node["text"]);
     console.log(node["value"])
 })
+
+// GOVTRACKS queryURL
+var govURL = "https://www.govtrack.us/api/v2/role?current=true";   
+
+// News API queryURL
+var newsBaseURL = "https://newsapi.org/v2/everything?q=", 
+    stateParams = node["text"], 
+    repParams ; // need to determine
+
+
+
