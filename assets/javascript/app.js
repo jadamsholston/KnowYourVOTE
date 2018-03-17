@@ -83,7 +83,21 @@ usStates.forEach(function(node){
 })
 
 // GOVTRACKS queryURL
-var govURL = "https://www.govtrack.us/api/v2/role?current=true";   
+ 
+
+var getInformation = function () {
+    var path = "https://www.govtrack.us/api/v2/role?current=true";
+  
+    $.ajax({
+        url: path,
+        async: false,
+        dataType: 'json',
+        success: function (data) {
+            $.each(response);
+        }
+    });
+ 
+}
 
 // News API queryURL
 var newsBaseURL = "https://newsapi.org/v2/everything?q=", 
