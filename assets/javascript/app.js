@@ -92,3 +92,15 @@ var newsBaseURL = "https://newsapi.org/v2/everything?q=",
     console.log(stateParams)
 
 
+$("#run-search").on("click", function(event){
+    event.preventDefault();
+    var htmlString = "";
+    var representativesDiv = $("#representatives");
+    var sampleResults = [{name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}];
+    $("#representatives").empty();
+    for(var i = 0; i < sampleResults.length; i++) {
+        htmlString += '<div class="panel-group rep-results"><div class="panel panel-default"><div class="panel-heading"><div class="panel-title"><strong>' + sampleResults[i]["name"] + '</strong><span class="pull-right"><i class="fa fa-chevron-down" data-toggle="collapse" href="#collapse' + i + '"></i></span></div></div><div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">' + sampleResults[i]["sample"] + '</div></div></div></div>'
+    }
+    representativesDiv.html(htmlString);
+    return;
+})
