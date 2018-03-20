@@ -127,12 +127,13 @@ var getInformation = function () {
     $('#nameSearch').val('');
     $('#addressSearch').val('');
     $('#zipCodeSearch').val('');
-        
+    $('#representatives').empty(); 
     $.ajax({
         url: civicURL,
         method: "GET"
     }).then(function (civicResponse) {
-        for(var i = 0; i < 10; i++) {
+        var officialsArray = civicResponse.officials;
+        for(var i = 0; i < officialsArray.length; i++) {
             var panelGroup = $('<div class="panel-group rep-results">');
             representatives.append(panelGroup);
             var panelDefault = $('<div class="panel panel-default">');
@@ -141,37 +142,50 @@ var getInformation = function () {
             var panelHeading = $('<div class="panel-heading">');
             panelDefault.append(panelHeading);
             //Panel Title
-           var panelTitle = $('<div class="panel-title">');
-           //Content inside of panel title
-           var nameStrong = $('<strong>');
-           nameStrong.text("John Adams");
-           panelTitle.append(nameStrong);
-           var spanIcon = $('<span class="pull-right">');
-           panelTitle.append(spanIcon);
-           var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
-           chevronDown.attr("href", "#collapse" + i);
-           chevronDown.attr("data-toggle", "collapse");
-           chevronDown.attr("data-search-term", "John Adams");
-           spanIcon.append(chevronDown);
-           //Append Panel Title to Panel Heading
-           panelHeading.append(panelTitle);
-           //Append panel heading to panel title
-           panelDefault.append(panelHeading);
-           //Expandable Header
-           var panelCollaspe = $('<div class="panel-collapse collapse">');
-           panelCollaspe.attr("id", "collapse" + i);
-           panelDefault.append(panelCollaspe)
-           var panelBody = $('<div class="panel-body">');
-           panelBody.text("Panel Body");
-           panelCollaspe.append(panelBody)
-        }
-     
+            var panelTitle = $('<div class="panel-title">');
+            //Content inside of panel title
+            var nameStrong = $('<strong>');
+            var nameUpper = officialsArray[i].name.toUpperCase();
+            nameStrong.text(nameUpper);
+            panelTitle.append(nameStrong);
+            var spanIcon = $('<span class="pull-right">');
+            panelTitle.append(spanIcon);
+            var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
+            chevronDown.attr("href", "#collapse" + i);
+            chevronDown.attr("data-toggle", "collapse");
+            chevronDown.attr("data-search-term", officialsArray[i].name);
+            chevronDown.attr("hasExpanded", false);
+            spanIcon.append(chevronDown);
+            //Append Panel Title to Panel Heading
+            panelHeading.append(panelTitle);
+            //Append panel heading to panel title
+            panelDefault.append(panelHeading);
+            //Expandable Header
+            var panelCollaspe = $('<div class="panel-collapse collapse">');
+            panelCollaspe.attr("id", "collapse" + i);
+            panelDefault.append(panelCollaspe)
+            var panelBody = $('<div class="panel-body">');
+            panelCollaspe.append(panelBody)
+            //HTML for panel body
+            if(officialsArray[i].photoUrl) {
+                panelBody.append($('<img src="' + officialsArray[i].photoUrl + '" class="img-responsive img-thumbnail float-left">'))
+            }
+            else {
+                //Add a placeholder image that says No Image Found
+            }
+            
+        } 
         console.log(civicResponse);
         console.log(civicResponse.normalizedInput.state);
         console.log(civicResponse.officials[0].name);
     });
 }
 $(document.body).on("click", ".article-chevron", function(event){
+    if($(this).attr("hasExpanded") === "true") {
+        return;
+    }
+    $(this).attr("hasExpanded", "true");
+    console.log(typeof $(this).attr("hasExpanded"));
     // News API queryURL
     var newsBaseURL = "https://newsapi.org/v2/everything?q=",
     stateParams = $("#stateSearch").val(),
