@@ -82,19 +82,28 @@ usStates.forEach(function(node){
     $("#stateSearch").append(option);
 })
 
-
- 
 var getInformation = function () {
     // Google Civic API QueryURL
     var civicBaseURL = "https://www.googleapis.com/civicinfo/v2/representatives?key=",
-        civicKey = "AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8",
-        params = "&address=",
-        name = $('#nameSearch').val().trim(),
-        address = $('#addressSearch').val().trim(),
-        zipCode = $('#zipCodeSearch').val().trim(),
-        stateParams = $("#stateSearch").val();
+    civicKey = "AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8",
+    params = "&address=",
+    name = $('#nameSearch').val().trim(),
+    address = $('#addressSearch').val().trim(),
+    zipCode = $('#zipCodeSearch').val().trim(),
+    stateParams = $("#stateSearch").val();
+    var representatives = $("#representatives");
+    //append address parameters if field has input in them.
+    if(address) {
+        params += address + " ";
+    }
+    if(zipCode) {
+        params += zipCode + " ";
+    }
+    if(stateParams) {
+        params += stateParams;
+    }
 
-    var civicURL = civicBaseURL + civicKey + params + address + stateParams + zipCode;
+    var civicURL = civicBaseURL + civicKey + params;
 
     console.log(civicURL);
 
@@ -106,63 +115,51 @@ var getInformation = function () {
         zipCode: zipCode
     }
 
-        //Uploads person's data to the database
-        database.ref().push(newPerson);
+    //Uploads person's data to the database
+    database.ref().push(newPerson);
 
-        console.log(newPerson.name);
-        console.log(newPerson.address);
-        console.log(newPerson.state);
-        console.log(newPerson.zipCode);
+    console.log(newPerson.name);
+    console.log(newPerson.address);
+    console.log(newPerson.state);
+    console.log(newPerson.zipCode);
 
-        // Clears all of the text-boxes
-        $('#nameSearch').val('');
-        $('#addressSearch').val('');
-        $('#zipCodeSearch').val('');
+    // Clears all of the text-boxes
+    $('#nameSearch').val('');
+    $('#addressSearch').val('');
+    $('#zipCodeSearch').val('');
         
     $.ajax({
         url: civicURL,
         method: "GET"
     }).then(function (civicResponse) {
-        
-        // need to create loop functions for each item we want to loop through. 
-
+     
         console.log(civicResponse);
         console.log(civicResponse.normalizedInput.state);
         console.log(civicResponse.officials[0].name);
-        
     });
-
 }
-
-// News API queryURL
-var newsBaseURL = "https://newsapi.org/v2/everything?q=",
+$(".fa-chevron-down").on("click", function(event){
+    // News API queryURL
+    var newsBaseURL = "https://newsapi.org/v2/everything?q=",
     stateParams = $("#stateSearch").val(),
     repParams, // need to determine how we get this to work. 
     newsKey = "&apiKey=672f8d40b47842c3bd2ac11a4f688a15";
 
-var newsURL = newsBaseURL + stateParams + repParams + newsKey;
+    var newsURL = newsBaseURL + stateParams + repParams + newsKey;
 
-console.log(newsURL);
+    console.log(newsURL);
 
-$.ajax({
+    $.ajax({
     url: newsURL,
     method: "GET"
-}).then(function (newsResponse) {
+    }).then(function (newsResponse) {
 
-    console.log(newsResponse);
-});
-
+        console.log(newsResponse);
+    });
+})
 
 $("#runSearch").on("click", function(event){
     event.preventDefault();
-    getInformation();   
-    var htmlString = "";
-    var representativesDiv = $("#representatives");
-    var sampleResults = [{name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}, {name: "Sample Law Person", sample: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero sequi corporis voluptatibus, dolores labore perspiciatis minus, dolore commodi repudiandae reprehenderit culpa iste? Possimus, tempore natus!"}];
-    $("#representatives").empty();
-    for(var i = 0; i < sampleResults.length; i++) {
-        htmlString += '<div class="panel-group rep-results"><div class="panel panel-default"><div class="panel-heading"><div class="panel-title"><strong>' + sampleResults[i]["name"] + '</strong><span class="pull-right"><i class="fa fa-chevron-down" data-toggle="collapse" href="#collapse' + i + '"></i></span></div></div><div id="collapse' + i + '" class="panel-collapse collapse"><div class="panel-body">' + sampleResults[i]["sample"] + '</div></div></div></div>'
-    }
-    representativesDiv.html(htmlString);
+    getInformation();
     return;
 })
