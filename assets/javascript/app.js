@@ -132,13 +132,46 @@ var getInformation = function () {
         url: civicURL,
         method: "GET"
     }).then(function (civicResponse) {
+        for(var i = 0; i < 10; i++) {
+            var panelGroup = $('<div class="panel-group rep-results">');
+            representatives.append(panelGroup);
+            var panelDefault = $('<div class="panel panel-default">');
+            panelGroup.append(panelDefault);
+            //Panel Heading
+            var panelHeading = $('<div class="panel-heading">');
+            panelDefault.append(panelHeading);
+            //Panel Title
+           var panelTitle = $('<div class="panel-title">');
+           //Content inside of panel title
+           var nameStrong = $('<strong>');
+           nameStrong.text("John Adams");
+           panelTitle.append(nameStrong);
+           var spanIcon = $('<span class="pull-right">');
+           panelTitle.append(spanIcon);
+           var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
+           chevronDown.attr("href", "#collapse" + i);
+           chevronDown.attr("data-toggle", "collapse");
+           chevronDown.attr("data-search-term", "John Adams");
+           spanIcon.append(chevronDown);
+           //Append Panel Title to Panel Heading
+           panelHeading.append(panelTitle);
+           //Append panel heading to panel title
+           panelDefault.append(panelHeading);
+           //Expandable Header
+           var panelCollaspe = $('<div class="panel-collapse collapse">');
+           panelCollaspe.attr("id", "collapse" + i);
+           panelDefault.append(panelCollaspe)
+           var panelBody = $('<div class="panel-body">');
+           panelBody.text("Panel Body");
+           panelCollaspe.append(panelBody)
+        }
      
         console.log(civicResponse);
         console.log(civicResponse.normalizedInput.state);
         console.log(civicResponse.officials[0].name);
     });
 }
-$(".fa-chevron-down").on("click", function(event){
+$(document.body).on("click", ".article-chevron", function(event){
     // News API queryURL
     var newsBaseURL = "https://newsapi.org/v2/everything?q=",
     stateParams = $("#stateSearch").val(),
