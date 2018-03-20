@@ -29,3 +29,6 @@
     text-shadow:none;
     color:black;
 }
+.article-chevron:hover {
+    cursor: pointer;
+}
