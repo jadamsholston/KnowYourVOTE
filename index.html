@@ -14,13 +14,45 @@
 </head>
 
 <body>
-
+    <!-- Navigation -->
+    <nav id="ex-navbar-collapse" class="collapse nav-collapse">
+        <div class="ex-navbar-styled bg-info">
+            <div class="container">
+                <p class="text-right">
+                    <button type="button" class="collapsed btn btn-xs btn-danger" 
+                    data-toggle="collapse" data-target="#ex-navbar-collapse" 
+                    aria-expanded="false" aria-controls="navbar">
+                    Close 
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </p>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#search">Search Officials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#ex-navbar-collapse" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+        </div>
+    </nav>
     <!-- Main Bootstrap Search -->
     <div class="container">
-
-        <!-- Jumbotron for Title -->
         <div class="bg"></div>
-        <div class="jumbotron">
+        
+        <!-- Jumbotron for Title -->
+        <div class="jumbotron" id="home">
             <h1 class="text-center">
                 <strong>Know Your Vote &#10004</strong>
                 <h4 style="text-align: center">Learn about your state's government representatives</h4>
@@ -33,7 +65,7 @@
                 <br>
                 <!-- First panel is for handling the search parameters -->
                 <div class="panel" id="titleBox">
-                    <div class="panel-heading" >
+                    <div class="panel-heading" id="search">
                         <h3 class="panel-title">
                             <strong>Enter your address to see who represents your area</strong>
                         </h3>
@@ -72,7 +104,7 @@
                 <div class="panel" id="titleBox">
                     <div class="panel-heading">
                         <h2 class="panel-title" style="text-align: center">
-                            <strong>Representatives</strong>
+                            <strong>Government Officials</strong>
                         </h2>
                     </div>
                     <div class="panel-body">
@@ -81,7 +113,12 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div id="footer">
+        <div class="container" style="text-align: center">
+            <strong class="footer-block">42 Wallaby Way, Sydney</strong>
+        </div>
+    </div>
 <!-- Firebase Reference -->
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
