@@ -32,6 +32,9 @@
 .article-chevron:hover {
     cursor: pointer;
 }
+.contact-icon:hover {
+    cursor:pointer;
+}
 .rep-image {
     height: auto;
     max-width:250px;
