@@ -27,8 +27,8 @@
                     </button>
                 </p>
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#search">Search Officials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -52,7 +52,7 @@
         <div class="bg"></div>
         
         <!-- Jumbotron for Title -->
-        <div class="jumbotron">
+        <div class="jumbotron" id="home">
             <h1 class="text-center">
                 <strong>Know Your Vote &#10004</strong>
                 <h4 style="text-align: center">Learn about your state's government representatives</h4>
@@ -65,7 +65,7 @@
                 <br>
                 <!-- First panel is for handling the search parameters -->
                 <div class="panel" id="titleBox">
-                    <div class="panel-heading" >
+                    <div class="panel-heading" id="search">
                         <h3 class="panel-title">
                             <strong>Enter your address to see who represents your area</strong>
                         </h3>
@@ -104,7 +104,7 @@
                 <div class="panel" id="titleBox">
                     <div class="panel-heading">
                         <h2 class="panel-title" style="text-align: center">
-                            <strong>Representatives</strong>
+                            <strong>Government Officials</strong>
                         </h2>
                     </div>
                     <div class="panel-body">
@@ -113,7 +113,12 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div id="footer">
+        <div class="container" style="text-align: center">
+            <strong class="footer-block">42 Wallaby Way, Sydney</strong>
+        </div>
+    </div>
 <!-- Firebase Reference -->
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
