@@ -116,7 +116,7 @@ var getInformation = function () {
     }
 
     //Uploads person's data to the database
-    database.ref().push(newPerson);
+    //database.ref().push(newPerson);
 
     console.log(newPerson.name);
     console.log(newPerson.address);
@@ -154,7 +154,23 @@ var getInformation = function () {
                 var nameUpper = officialsArray[index].name.toUpperCase();
                 nameStrong.text(nameUpper);
                 panelTitle.append(nameStrong);
-                panelTitle.append(" " + position);
+                panelTitle.append(" " + position + " ");
+                if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
+                    var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact">');
+                    if(officialsArray[index].channels) {
+                        contactIcon.attr("data-contact-channels", JSON.stringify(officialsArray[index].channels));
+                    }
+                    if(officialsArray[index].address) {
+                        contactIcon.attr("data-contact-address", JSON.stringify(officialsArray[index].address));
+                    }  
+                    if(officialsArray[index].phones) {
+                        contactIcon.attr("data-contact-phones", JSON.stringify(officialsArray[index].phones));
+                    }
+                    if(officialsArray[index].urls) {
+                        contactIcon.attr("data-contact-urls", JSON.stringify(officialsArray[index].phones));
+                    } 
+                    panelTitle.append(contactIcon) 
+                }
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
                 var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
@@ -163,6 +179,7 @@ var getInformation = function () {
                 chevronDown.attr("data-search-term", officialsArray[index].name);
                 chevronDown.attr("hasExpanded", false);
                 spanIcon.append(chevronDown);
+                
                 //Append Panel Title to Panel Heading
                 panelHeading.append(panelTitle);
                 //Append panel heading to panel title
@@ -215,7 +232,8 @@ $(document.body).on("click", ".article-chevron", function(event){
         console.log(newsResponse);
     });
 })
-$(document.body).on("click", ".fa-address-card", function(event){
+$(document.body).on("click", ".contact-icon", function(event){
+
 
 
 })
