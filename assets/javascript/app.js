@@ -116,7 +116,7 @@ var getInformation = function () {
     }
 
     //Uploads person's data to the database
-    database.ref().push(newPerson);
+    //database.ref().push(newPerson);
 
     console.log(newPerson.name);
     console.log(newPerson.address);
@@ -133,47 +133,75 @@ var getInformation = function () {
         method: "GET"
     }).then(function (civicResponse) {
         var officialsArray = civicResponse.officials;
-        for(var i = 0; i < officialsArray.length; i++) {
-            var panelGroup = $('<div class="panel-group rep-results">');
-            representatives.append(panelGroup);
-            var panelDefault = $('<div class="panel panel-default">');
-            panelGroup.append(panelDefault);
-            //Panel Heading
-            var panelHeading = $('<div class="panel-heading">');
-            panelDefault.append(panelHeading);
-            //Panel Title
-            var panelTitle = $('<div class="panel-title">');
-            //Content inside of panel title
-            var nameStrong = $('<strong>');
-            var nameUpper = officialsArray[i].name.toUpperCase();
-            nameStrong.text(nameUpper);
-            panelTitle.append(nameStrong);
-            var spanIcon = $('<span class="pull-right">');
-            panelTitle.append(spanIcon);
-            var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
-            chevronDown.attr("href", "#collapse" + i);
-            chevronDown.attr("data-toggle", "collapse");
-            chevronDown.attr("data-search-term", officialsArray[i].name);
-            chevronDown.attr("hasExpanded", false);
-            spanIcon.append(chevronDown);
-            //Append Panel Title to Panel Heading
-            panelHeading.append(panelTitle);
-            //Append panel heading to panel title
-            panelDefault.append(panelHeading);
-            //Expandable Header
-            var panelCollaspe = $('<div class="panel-collapse collapse">');
-            panelCollaspe.attr("id", "collapse" + i);
-            panelDefault.append(panelCollaspe)
-            var panelBody = $('<div class="panel-body">');
-            panelCollaspe.append(panelBody)
-            //HTML for panel body
-            if(officialsArray[i].photoUrl) {
-                panelBody.append($('<img src="' + officialsArray[i].photoUrl + '" class="img-responsive img-thumbnail float-left">'))
-            }
-            else {
-                //Add a placeholder image that says No Image Found
-            }
+        var officesArray = civicResponse.offices;
+        for(var i = 0; i < officesArray.length; i++) {
+            var officialIndices = officesArray[i]["officialIndices"]; 
+            var position = officesArray[i]["name"];
+            //console.log(officialIndices)           
+            for(var h = 0; h < officialIndices.length; h++) {
+                var index = officialIndices[h]
+                var panelGroup = $('<div class="panel-group rep-results">');
+                representatives.append(panelGroup);
+                var panelDefault = $('<div class="panel panel-default">');
+                panelGroup.append(panelDefault);
+                //Panel Heading
+                var panelHeading = $('<div class="panel-heading">');
+                panelDefault.append(panelHeading);
+                //Panel Title
+                var panelTitle = $('<div class="panel-title">');
+                //Content inside of panel title
+                var nameStrong = $('<strong>');
+                var nameUpper = officialsArray[index].name.toUpperCase();
+                nameStrong.text(nameUpper);
+                panelTitle.append(nameStrong);
+                panelTitle.append(" " + position + " ");
+                if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
+                    var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact">');
+                    if(officialsArray[index].channels) {
+                        contactIcon.attr("data-contact-channels", JSON.stringify(officialsArray[index].channels));
+                    }
+                    if(officialsArray[index].address) {
+                        contactIcon.attr("data-contact-address", JSON.stringify(officialsArray[index].address));
+                    }  
+                    if(officialsArray[index].phones) {
+                        contactIcon.attr("data-contact-phones", JSON.stringify(officialsArray[index].phones));
+                    }
+                    if(officialsArray[index].urls) {
+                        contactIcon.attr("data-contact-urls", JSON.stringify(officialsArray[index].phones));
+                    } 
+                    panelTitle.append(contactIcon) 
+                }
+                var spanIcon = $('<span class="pull-right">');
+                panelTitle.append(spanIcon);
+                var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
+                chevronDown.attr("href", "#collapse" + i);
+                chevronDown.attr("data-toggle", "collapse");
+                chevronDown.attr("data-search-term", officialsArray[index].name);
+                chevronDown.attr("hasExpanded", false);
+                spanIcon.append(chevronDown);
+                
+                //Append Panel Title to Panel Heading
+                panelHeading.append(panelTitle);
+                //Append panel heading to panel title
+                panelDefault.append(panelHeading);
+                //Expandable Header
+                var panelCollaspe = $('<div class="panel-collapse collapse">');
+                panelCollaspe.attr("id", "collapse" + i);
+                panelDefault.append(panelCollaspe)
+                var panelBody = $('<div class="panel-body">');
+                panelCollaspe.append(panelBody)
+                //HTML for panel body
+                if(officialsArray[index].photoUrl) {
+                    panelBody.append($('<img src="' + officialsArray[index].photoUrl + '" class="img-responsive img-thumbnail float-left rep-image">'))
+                }
+                else {
+                    //Add a placeholder image that says No Image Found
+                    var placeholderImg = "./assets/images/Placeholder-image.jpg"
+                    panelBody.append($('<img src="' + placeholderImg + '" class="img-responsive img-thumbnail float-left rep-image">'))
+                }
             
+            }
+ 
         } 
         console.log(civicResponse);
         console.log(civicResponse.normalizedInput.state);
@@ -204,7 +232,11 @@ $(document.body).on("click", ".article-chevron", function(event){
         console.log(newsResponse);
     });
 })
+$(document.body).on("click", ".contact-icon", function(event){
 
+
+
+})
 $("#runSearch").on("click", function(event){
     event.preventDefault();
     getInformation();
