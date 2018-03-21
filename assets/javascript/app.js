@@ -179,6 +179,8 @@ var getInformation = function () {
                 }
                 else {
                     //Add a placeholder image that says No Image Found
+                    var placeholderImg = "./assets/images/Placeholder-image.jpg"
+                    panelBody.append($('<img src="' + placeholderImg + '" class="img-responsive img-thumbnail float-left rep-image">'))
                 }
             
             }
