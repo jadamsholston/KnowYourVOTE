@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Know Your Vote</title>
-
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
     <!-- Bootswatch Styling for Improving the Aesthetics -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css">
     <!-- Font Awesome CSS Icons (For cool glyphicons) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/awesomplete.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
 
 </head>
@@ -180,6 +181,11 @@
                                 <input type="text" class="form-control" id="addressSearch">
                             </div>
                             <div class="form-group">
+                                <label for="name">City</label>
+                                <input type="text" class="form-control" id="citySearch">
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="search">State</label>
                                 <select type="text" class="form-control" id="stateSearch">
                                     </select>                      
@@ -226,6 +232,7 @@
     crossorigin="anonymous"></script>
 <!-- Moment.js Reference -->
 <script type="text/javascript" src="assets/javascript/moment.js"></script>
+<script type="text/javascript" src="assets/javascript/awesomplete.js"></script>
 <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
