@@ -525,7 +525,13 @@ $(document.body).on("click", ".contact-icon", function(event){
     console.log(urls);
 })
 $("#runSearch").on("click", function(event){
-    event.preventDefault();
-    getInformation();
-    return;
-})
+    if (!userLoggedIn) {
+        event.preventDefault();
+        $("#loginModal").modal("show");
+        console.log(userLoggedIn);
+    } else {
+        event.preventDefault();
+        getInformation();
+        return;
+    }
+}); 
