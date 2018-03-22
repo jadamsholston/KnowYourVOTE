@@ -409,7 +409,7 @@ $(document.body).on("click", ".article-chevron", function (event) {
     console.log(typeof $(this).attr("hasExpanded"));
     // News API queryURL
     var newsBaseURL = "https://newsapi.org/v2/everything?q=",
-        repParams = $(".article-chevron").attr("data-search-term"),
+        repParams = $(this).attr("data-search-term"),
         stateParams = "&" + $("#stateSearch").val(),
         newsKey = "&apiKey=672f8d40b47842c3bd2ac11a4f688a15";
 
