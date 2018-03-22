@@ -8,10 +8,221 @@ var config = {
     messagingSenderId: "276903556955"
 };
 firebase.initializeApp(config);
+//Global Firebase variables
+var database = firebase.database(),
+    authorize = firebase.auth(),
+    //google auth firebase instance
+    googleProvider = new firebase.auth.GoogleAuthProvider(),
+    userLoggedIn = false,
+    //used to determine if user is online at any time
+    disconnectUser,
+    //will be user object with all kinds of datas
+    userObject,
+    //to allow easy use of the database
+    databaseObject;
+//This is the function for database reference
+database.ref().on("value", function (snapshot) {
+    databaseObject = snapshot.toJSON();
+    console.log(databaseObject);    
+    //firebase function to check whether user is logged into site
+    authorize.onAuthStateChanged(function (user) {
+        if (user) {//will return non-null if there is a user logged in 
+            event.preventDefault();
+            userObject = user;//get the returned object for the auth, which has the logged in user's information, namely uid
+            userLoggedIn = true;//used below to state user is logged in and to proceed to next page
+            $("#welcomeModal").modal("show");
+            $(".modal-body").append("<p> Welcome back, " + databaseObject.users[userObject.uid].name + ", Let's get started! Click to close.</p>");
+            $(".modal-footer").append("<button class='btn btn-primary closeBtn'> Close </button>")
+            $("#logIn").css("display", "none");
+            $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")  
+            $('.closeBtn').on("click", function () {
+                $("#welcomeModal").modal("hide");
+            });   
+        }         
+        else if (databaseObject != null) {//if there is nothing in the database , then snapshot is null
+            event.preventDefault();
+            disconnectUser = database.ref("/users/" + userObject.uid + "/iconnect")
+            disconnectUser.set(true);
+            disconnectUser.onDisconnect().set("disconnected");                              
+        } else {
+            userLoggedIn = false;
+        }
+    });
+});
 
-// Create a variable to reference the database
-var database = firebase.database();
+//////////////////////////////////HOME PAGE LOAD/////////////////////////////////////
 
+var pageToLoad;
+//listener for when helper button is clicked on home screen
+$("#logIn").on("click", function () {
+    //checks to see if user is logged in 
+    if (!userLoggedIn) {//userLoggedIn is set above in OnAuthChange
+        $("#loginModal").modal({ backdrop: 'static', keyboard: false }); //if user not logged in, show modal for user to log in
+        $("#loginModal").modal("show");
+        pageToLoad = "index.html";//store page to load so that user can be directed to it after login
+    } else {//if user is logged in
+        database.ref("/users/" + userObject.uid + "/cameFromOtherPage").set(false);
+        var win = window.open("index.html", "_self");
+        win.focus();
+    }
+
+}); 
+
+//////////////////////////////////MODAL CODE/////////////////////////////////////
+
+//This function is for going to sign up modal from Log in Modal
+$("#form-up").on("click", function () {
+    $("#loginModal").modal("hide");
+    $("#signUpModal").modal("show");
+    $("#submit-up").show(); 
+    $("#close-up").show(); 
+    $("#errorMsg").empty();
+    
+
+});
+//This function is for going to sign in modal from Log In Modal
+$("#form-sign").on("click", function () {
+    $("#loginModal").modal("hide");
+    $("#signInModal").modal("show");
+    $("#submit-sign").show();   
+    $("#close-sign").show(); 
+    $("#passwordBtn").show();   
+    $("#errorMsg").empty();
+
+}); 
+//This function is for sign ups. 
+$("#submit-up").on("click", function () {
+    var email = $("#email-up").val(),
+        password = $("#password-up").val(),
+        name = $("#firstName").val() + " " + $("#lastName").val(),
+        errorCode = "";
+    $("#errorMsg").empty();
+
+    console.log(email);
+    console.log(password);
+    console.log(name);
+    console.log(errorCode);
+
+    $('#close-up').on("click", function () {
+        $("#signUpModal").modal("hide");
+        $("#loginModal").modal("show");
+    });
+    authorize.createUserWithEmailAndPassword(email, password).then(function (user) {
+        //creates user 
+        $("#signUpModal").modal("hide")        
+        $("#logIn").css("display", "none");
+        $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")
+        userLoggedIn = true;
+        database.ref("/users/" + user.uid).set({//sets preliminary information gathered in user form to firebase in the node users/the user's uid - since uid is a primary key for the user, this makes sense to set data here since uid will always be unique to the particular user
+            name: name,
+            email: email,
+        });
+    }).catch(function (error) {//shows firebase auth error warning
+        var errorCode = error.code,
+            errorMessage = error.message;
+
+        console.log(errorMessage);
+
+        if (errorMessage == "The email address is already in use by another account.") {
+            $("#errorMsg").empty();
+            $("#errorMsg").append("<p>" + errorMessage + " If this is your account, please click the sign in button to sign in.</p>")
+        } else {
+            $("#errorMsg").empty();
+            $("#errorMsg").append("<p>" + errorMessage + " Please try again.</p>")
+        }
+    });
+});
+//This function is for changing to login Modal from Sign in Modal.
+$('#close-sign').on("click", function () {
+    $("#signInModal").modal("hide");
+    $("#loginModal").modal("show");
+});
+//This function is for closing the password Modal
+$('#close-password').on("click", function () {
+    $("#passwordModal").modal("hide");
+    $("#loginModal").modal("show");
+});
+//This function is for changing to login Modal from Sign Up Modal.
+$('#close-up').on("click", function () {
+    $("#signUpModal").modal("hide");
+    $("#loginModal").modal("show");
+});
+//This function is for sign ins
+$("#submit-sign").on("click", function () {
+    var email = $("#email-sign").val(),
+        password = $("#password-sign").val();
+
+    console.log(email);
+    console.log(password);
+    
+    //firebase sign in with email and password function
+    //returns user - used to personal statement on post sign in modal
+    authorize.signInWithEmailAndPassword(email, password).then(function (user) {   
+        $("#signInModal").modal("hide")                     
+        $("#logIn").css("display", "none");
+        $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>"); 
+        userLoggedIn = true;    
+        console.log(userLoggedIn);  
+    }).catch(function (error) {//shows firebase auth error warning
+        var errorCode = error.code,
+            errorMessage = error.message;
+
+        console.log(errorCode);
+        console.log(errorMessage);
+
+        if (errorMessage) {
+            $("#errorMessage").empty();
+            $("#errorMessage").append("<p class='text-center'>" + errorMessage + " Please try again.</p>")            
+            $('.closeBtn').on("click", function () {
+                $(".closeBtn").css("display", "none");
+                $("#errorMessage").empty();
+                $("#signInModal").modal("hide");
+                $("#loginModal").modal("show");
+            });           
+        }
+    });
+});
+//This function is for going to Password Modal from Forgot password button
+$('#passwordSign').on("click", function () {
+    $("#signInModal").modal("hide")
+    $("#password-form").show(); 
+    $("#close-password").show(); 
+    $("#passwordModal").modal("show")
+});
+//This function is for sending email to user to reset password
+$('#submit-password').on("click", function () {      
+    var email = $("#email-password").val();
+    authorize.sendPasswordResetEmail(email).then(function () {
+        $("#passwordModal").modal("hide")
+    }).catch(function (error) {
+        var errorCode = error.code,
+            errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+
+        if (errorMessage) {
+            $("#errorPassword").empty();
+            $("#password-form").css("display", "none");
+            $("#errorPassword").append("<p class='text-center'>" + errorMessage + " Please try again.</p>")
+            $('.closeBtn').on("click", function () {
+                $(".closeBtn").css("display", "none");
+                $("#errorPassword").empty();
+                $("#loginModal").modal("show");
+            });           
+        }
+    });
+});
+//signs out user
+$(document).on("click", "#logOut", function () {
+    firebase.auth().signOut().then(function () {
+        var win = window.open("index.html", "_self");
+        win.focus();
+    }, function (error) {
+        console.error('Sign Out Error', error);
+    });
+}); 
+
+////////////////////////////////// END MODAL CODE/////////////////////////////////////
 //COO add an array of states with their abbreviations (value) and their full names (text)
 var usStates = [
     { text: 'ALABAMA', value: 'AL'},
@@ -87,7 +298,6 @@ var getInformation = function () {
     var civicBaseURL = "https://www.googleapis.com/civicinfo/v2/representatives?key=",
     civicKey = "AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8",
     params = "&address=",
-    name = $('#nameSearch').val().trim(),
     address = $('#addressSearch').val().trim(),
     zipCode = $('#zipCodeSearch').val().trim(),
     stateParams = $("#stateSearch").val();
@@ -107,24 +317,7 @@ var getInformation = function () {
 
     console.log(civicURL);
 
-    // Creates local "temporary" object for holding person's data
-    var newPerson = {
-        name: name,
-        address: address,
-        state: stateParams,
-        zipCode: zipCode
-    }
-
-    //Uploads person's data to the database
-    //database.ref().push(newPerson);
-
-    console.log(newPerson.name);
-    console.log(newPerson.address);
-    console.log(newPerson.state);
-    console.log(newPerson.zipCode);
-
     // Clears all of the text-boxes
-    $('#nameSearch').val('');
     $('#addressSearch').val('');
     $('#zipCodeSearch').val('');
     $('#representatives').empty(); 
@@ -205,28 +398,28 @@ var getInformation = function () {
         } 
         console.log(civicResponse);
         console.log(civicResponse.normalizedInput.state);
-        console.log(civicResponse.officials[0].name);
+
     });
-}
-$(document.body).on("click", ".article-chevron", function(event){
-    if($(this).attr("hasExpanded") === "true") {
+};
+$(document.body).on("click", ".article-chevron", function (event) {
+    if ($(this).attr("hasExpanded") === "true") {
         return;
     }
     $(this).attr("hasExpanded", "true");
     console.log(typeof $(this).attr("hasExpanded"));
     // News API queryURL
     var newsBaseURL = "https://newsapi.org/v2/everything?q=",
-    stateParams = $("#stateSearch").val(),
-    repParams, // need to determine how we get this to work. 
-    newsKey = "&apiKey=672f8d40b47842c3bd2ac11a4f688a15";
+        repParams = $(".article-chevron").attr("data-search-term"),
+        stateParams = "&" + $("#stateSearch").val(),
+        newsKey = "&apiKey=672f8d40b47842c3bd2ac11a4f688a15";
 
-    var newsURL = newsBaseURL + stateParams + repParams + newsKey;
+    var newsURL = newsBaseURL + repParams + stateParams + newsKey;
 
     console.log(newsURL);
 
     $.ajax({
-    url: newsURL,
-    method: "GET"
+        url: newsURL,
+        method: "GET"
     }).then(function (newsResponse) {
 
         console.log(newsResponse);
