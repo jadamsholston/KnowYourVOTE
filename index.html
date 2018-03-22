@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Know Your Vote</title>
-
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
     <!-- Bootswatch Styling for Improving the Aesthetics -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css">
     <!-- Font Awesome CSS Icons (For cool glyphicons) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/awesomplete.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
 
 </head>
@@ -19,13 +20,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body text-center">
+                    <h2>Welcome to Know Your Vote &#10004</h2>
+                    <p>Please Sign up or Log in to start your search</p>
     
                     <!--buttons for different sign in/up methods-->
                     <button class="btn btn-default btn-block" id="form-sign">
                         <i class="fa fa-pencil"></i>
                         <i class="fa fa-fw"></i>Sign In
                     </button>
-                    <button class="btn btn-default btn-block" id="form-up">
+                    <button class="btn btn-primary btn-block" id="form-up">
                         <i class="fa fa-pencil"></i>
                         <i class="fa fa-fw"></i>Sign Up
                     </button>                                    
@@ -177,6 +180,11 @@
                                 <input type="text" class="form-control" id="addressSearch">
                             </div>
                             <div class="form-group">
+                                <label for="name">City</label>
+                                <input type="text" class="form-control" id="citySearch">
+                            </div>
+                            
+                            <div class="form-group">
                                 <label for="search">State</label>
                                 <select type="text" class="form-control" id="stateSearch">
                                 </select>
@@ -269,16 +277,16 @@
             <strong class="footer-block">42 Wallaby Way, Sydney</strong>
         </div>
     </div>
-
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-    <!-- Moment.js Reference -->
-    <script type="text/javascript" src="assets/javascript/moment.js"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
+<!-- Firebase Reference -->
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+<!-- Moment.js Reference -->
+<script type="text/javascript" src="assets/javascript/moment.js"></script>
+<script type="text/javascript" src="assets/javascript/awesomplete.js"></script>
+<script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
 
