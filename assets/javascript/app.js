@@ -8,16 +8,19 @@ var config = {
     messagingSenderId: "276903556955"
 };
 firebase.initializeApp(config);
-
-var database = firebase.database();
-var authorize = firebase.auth();
-var googleProvider = new firebase.auth.GoogleAuthProvider();//google auth firebase instance
-var userLoggedIn = false;
-var disconnectUser;//used to determine if user is online at any time
-
-var userObject;//will be user object with all kinds of datas
-var databaseObject;//to allow easy use of the database
-//get instance of real-time database
+//Global Firebase variables
+var database = firebase.database(),
+    authorize = firebase.auth(),
+    //google auth firebase instance
+    googleProvider = new firebase.auth.GoogleAuthProvider(),
+    userLoggedIn = false,
+    //used to determine if user is online at any time
+    disconnectUser,
+    //will be user object with all kinds of datas
+    userObject,
+    //to allow easy use of the database
+    databaseObject;
+//This is the function for database reference
 database.ref().on("value", function (snapshot) {
     databaseObject = snapshot.toJSON();
     console.log(databaseObject);    
@@ -50,7 +53,6 @@ database.ref().on("value", function (snapshot) {
 //////////////////////////////////HOME PAGE LOAD/////////////////////////////////////
 
 var pageToLoad;
-
 //listener for when helper button is clicked on home screen
 $("#logIn").on("click", function () {
     //checks to see if user is logged in 
@@ -68,7 +70,7 @@ $("#logIn").on("click", function () {
 
 //////////////////////////////////MODAL CODE/////////////////////////////////////
 
-//iif the from sign up button is clicked, this function will occur
+//This function is for going to sign up modal from Log in Modal
 $("#form-up").on("click", function () {
     $("#loginModal").modal("hide");
     $("#signUpModal").modal("show");
@@ -78,8 +80,7 @@ $("#form-up").on("click", function () {
     
 
 });
-
-//if the form sign in button is clicked, this function will occur
+//This function is for going to sign in modal from Log In Modal
 $("#form-sign").on("click", function () {
     $("#loginModal").modal("hide");
     $("#signInModal").modal("show");
@@ -89,7 +90,7 @@ $("#form-sign").on("click", function () {
     $("#errorMsg").empty();
 
 }); 
-
+//This function is for sign ups. 
 $("#submit-up").on("click", function () {
     var email = $("#email-up").val(),
         password = $("#password-up").val(),
@@ -102,51 +103,46 @@ $("#submit-up").on("click", function () {
     console.log(name);
     console.log(errorCode);
 
-        $('#close-up').on("click", function () {       
-            $("#signUpModal").modal("hide");
-            $("#loginModal").modal("show");
+    $('#close-up').on("click", function () {
+        $("#signUpModal").modal("hide");
+        $("#loginModal").modal("show");
+    });
+    authorize.createUserWithEmailAndPassword(email, password).then(function (user) {
+        //creates user 
+        $("#signUpModal").modal("hide")        
+        $("#logIn").css("display", "none");
+        $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")
+        userLoggedIn = true;
+        database.ref("/users/" + user.uid).set({//sets preliminary information gathered in user form to firebase in the node users/the user's uid - since uid is a primary key for the user, this makes sense to set data here since uid will always be unique to the particular user
+            name: name,
+            email: email,
         });
-        authorize.createUserWithEmailAndPassword(email, password).then(function (user) {
-            //creates user 
-            $("#submit-up").hide();
-            $("#sign-up-form").css("display", "none");
-            $(".modal-body").append("<p>Thank you, " + name + " for signing up with us!</p>");
-            $('.closeBtn').on("click", function () {
-                $("#signUpModal").modal("hide");
-                $("#errorMsg").empty();
-            });
-            $("#logIn").css("display", "none");
-            $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")
-            database.ref("/users/" + user.uid).set({//sets preliminary information gathered in user form to firebase in the node users/the user's uid - since uid is a primary key for the user, this makes sense to set data here since uid will always be unique to the particular user
-                name: name,
-                email: email,
-            });
-        }).catch(function (error) {//shows firebase auth error warning
-            var errorCode = error.code,
-                errorMessage = error.message;
+    }).catch(function (error) {//shows firebase auth error warning
+        var errorCode = error.code,
+            errorMessage = error.message;
 
-                console.log(errorMessage);
+        console.log(errorMessage);
 
-            if (errorMessage == "The email address is already in use by another account.") { 
-                $("#errorMsg").empty();           
-                $("#errorMsg").append("<p>" + errorMessage + " If this is your account, please click the sign in button to sign in.</p>")
-            } else {            
-                $("#errorMsg").empty();
-                $("#errorMsg").append("<p>" + errorMessage + " Please try again.</p>")
-            }
-        });
+        if (errorMessage == "The email address is already in use by another account.") {
+            $("#errorMsg").empty();
+            $("#errorMsg").append("<p>" + errorMessage + " If this is your account, please click the sign in button to sign in.</p>")
+        } else {
+            $("#errorMsg").empty();
+            $("#errorMsg").append("<p>" + errorMessage + " Please try again.</p>")
+        }
+    });
 });
+//This function is for changing to login Modal from Sign in Modal.
 $('#close-sign').on("click", function () {
     $("#signInModal").modal("hide");
     $("#loginModal").modal("show");
 });
+//This function is for changing to login Modal from Sign Up Modal.
 $('#close-up').on("click", function () {
     $("#signUpModal").modal("hide");
     $("#loginModal").modal("show");
 });
-
-// Once the form-sign button is clicked, the sign In Modal will appear to have the person fill out
-// their registered email and password. 
+//This function is for sign ins
 $("#submit-sign").on("click", function () {
     var email = $("#email-sign").val(),
         password = $("#password-sign").val();
@@ -156,19 +152,12 @@ $("#submit-sign").on("click", function () {
     
     //firebase sign in with email and password function
     //returns user - used to personal statement on post sign in modal
-    authorize.signInWithEmailAndPassword(email, password).then(function (user) {        
-        $("#submit-sign").hide();
-        $("#close-sign").hide();  
-        $("#passwordBtn").hide();  
-        $("#sign-in-form").css("display", "none");
-        $("#errorMessage").empty();
-        $(".modal-body").append("<p>Thank you, " + email + ", please click the button below to continue to site.</p>");
-        $(".modal-footer").append("<button class='btn btn-danger closeBtn'> Close </button>")
-        $('.closeBtn').on("click", function () {
-            $("#signInModal").modal("hide");
-        });
+    authorize.signInWithEmailAndPassword(email, password).then(function (user) {   
+        $("#signInModal").modal("hide")                     
         $("#logIn").css("display", "none");
-        $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")
+        $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>"); 
+        userLoggedIn = true;    
+        console.log(userLoggedIn);  
     }).catch(function (error) {//shows firebase auth error warning
         var errorCode = error.code,
             errorMessage = error.message;
@@ -191,10 +180,6 @@ $("#submit-sign").on("click", function () {
         }
     });
 });
-
-
-
-
 //signs out user
 $(document).on("click", "#logOut", function () {
     firebase.auth().signOut().then(function () {
@@ -413,8 +398,16 @@ $(document.body).on("click", ".contact-icon", function(event){
 
 });
 
-$("#runSearch").on("click", function(event){
-    event.preventDefault();
-    getInformation();
-    return;
-})
+$("#runSearch").on("click", function(event){    
+    if (!userLoggedIn) {
+        event.preventDefault();
+        $("#loginModal").modal("show");
+        console.log(userLoggedIn);  
+    }
+    else {
+        event.preventDefault();
+        getInformation();
+        return;
+    }
+        
+});
