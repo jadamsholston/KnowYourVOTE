@@ -361,7 +361,10 @@ var getInformation = function () {
                     }
                     if(officialsArray[index].urls) {
                         contactIcon.attr("data-contact-urls", JSON.stringify(officialsArray[index].urls));
-                    } 
+                    }
+                    if(officialsArray[index].emails) {
+                        contactIcon.attr("data-contact-emails", JSON.stringify(officialsArray[index].emails));
+                    }
                     panelTitle.append(contactIcon) 
                 }
                 var spanIcon = $('<span class="pull-right">');
@@ -426,10 +429,19 @@ $(document.body).on("click", ".article-chevron", function (event) {
     });
 })
 $(document.body).on("click", ".contact-icon", function(event){
-    var address
-    var channels
-    var phones
-    var urls
+    var address;
+    var channels;
+    var phones;
+    var urls;
+    var emails;
+    $("#modal-contact-address-line1").empty();
+    $("#modal-contact-address-line2").empty();
+    $("#modal-contact-address-line3").empty();
+    $("#modal-contact-address-website").empty();
+    $("#social-media-container").empty();
+    $("#modal-contact-address-phone").empty();
+    $("#modal-contact-address-website").empty();
+    $("#modal-contact-address-email").empty();
     if($(this).attr("data-contact-address")) {
         address = JSON.parse($(this).attr("data-contact-address"));
     }
@@ -441,6 +453,71 @@ $(document.body).on("click", ".contact-icon", function(event){
     }
     if($(this).attr("data-contact-urls")) {
         urls = JSON.parse($(this).attr("data-contact-urls"));
+    }
+    if($(this).attr("data-contact-emails")) {
+        emails = JSON.parse($(this).attr("data-contact-emails"));
+    }
+    if(!address) {
+        $("#modal-contact-address-line1").text("N/A");
+    } else {
+        if(address[0].line1) {
+            $("#modal-contact-address-line1").text(address[0].line1);
+        }
+        if(address[0].line2) {
+            $("#modal-contact-address-line2").text(address[0].line2);
+        }
+        if(address[0].city) {
+            $("#modal-contact-address-line3").append(address[0].city + ", ")
+        }
+        if(address[0].state) {
+            $("#modal-contact-address-line3").append(address[0].state + " ")
+        }
+        if(address[0].zip) {
+            $("#modal-contact-address-line3").append(address[0].zip)
+        }
+    }
+    if(!channels) {
+        $("#social-media-container").text("N/A");
+
+    } else {
+        for(var i = 0 ; i < channels.length; i++) {
+            if(channels[i]["type"] === "Twitter") {
+                var span = $('<span>');
+                $("#social-media-container").append(span);
+                var twitterIcon = $('<i class="fa fa-twitter fa-3x">');
+                twitterIcon.attr("href", "#");
+                span.append(twitterIcon);
+            }
+            if(channels[i]["type"] === "Facebook") {
+                var span = $('<span>');
+                $("#social-media-container").append(span);
+                var facebookIcon = $('<i class="fa fa-facebook fa-3x">');
+                facebookIcon.attr("href", "#");
+                span.append(facebookIcon);
+            }
+        }
+    }
+    if(!phones) {
+        $("#modal-contact-address-phone").text("N/A");
+
+    } else {
+        $("#modal-contact-address-phone").text(phones[0]);
+    }
+    if(!emails) {
+        $("#modal-contact-address-email").text("N/A");
+    } else {
+        var aTag = $('<a>');
+        aTag.attr("href", "mailto:" + emails[0])
+        aTag.text(emails[0]);
+        $("#modal-contact-address-email").append(aTag);
+    }
+    if(!urls) {
+        $("#modal-contact-address-website").text("N/A");
+    } else {
+        var aTag = $('<a>');
+        aTag.attr("href", urls[0])
+        aTag.text(urls[0]);
+        $("#modal-contact-address-website").append(aTag);
     }
     console.log(address);
     console.log(channels);
