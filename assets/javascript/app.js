@@ -156,7 +156,7 @@ var getInformation = function () {
                 panelTitle.append(nameStrong);
                 panelTitle.append(" " + position + " ");
                 if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
-                    var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact">');
+                    var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact" data-target="#contactModal" data-toggle="modal">');
                     if(officialsArray[index].channels) {
                         contactIcon.attr("data-contact-channels", JSON.stringify(officialsArray[index].channels));
                     }
@@ -167,7 +167,7 @@ var getInformation = function () {
                         contactIcon.attr("data-contact-phones", JSON.stringify(officialsArray[index].phones));
                     }
                     if(officialsArray[index].urls) {
-                        contactIcon.attr("data-contact-urls", JSON.stringify(officialsArray[index].phones));
+                        contactIcon.attr("data-contact-urls", JSON.stringify(officialsArray[index].urls));
                     } 
                     panelTitle.append(contactIcon) 
                 }
@@ -233,9 +233,26 @@ $(document.body).on("click", ".article-chevron", function(event){
     });
 })
 $(document.body).on("click", ".contact-icon", function(event){
-
-
-
+    var address
+    var channels
+    var phones
+    var urls
+    if($(this).attr("data-contact-address")) {
+        address = JSON.parse($(this).attr("data-contact-address"));
+    }
+    if($(this).attr("data-contact-channels")) {
+        channels = JSON.parse($(this).attr("data-contact-channels"));
+    }
+    if($(this).attr("data-contact-phones")) {
+        phones = JSON.parse($(this).attr("data-contact-phones"));
+    }
+    if($(this).attr("data-contact-urls")) {
+        urls = JSON.parse($(this).attr("data-contact-urls"));
+    }
+    console.log(address);
+    console.log(channels);
+    console.log(phones);
+    console.log(urls);
 })
 $("#runSearch").on("click", function(event){
     event.preventDefault();
