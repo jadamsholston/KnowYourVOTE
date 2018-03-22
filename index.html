@@ -276,14 +276,25 @@
             <strong class="footer-block">42 Wallaby Way, Sydney</strong>
         </div>
     </div>
+
+    <script>
+    function activatePlacesSearch (){
+        var input = document.getElementById("addressSearch");
+        var autocomplete = new google.maps.places.Autocomplete(input);  
+    }
+    </script>
+<!-- Google Map API -- >
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8&libraries=places"></script>
 <!-- Firebase Reference -->
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+<!-- JQuery --> 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
     crossorigin="anonymous"></script>
 <!-- Moment.js Reference -->
 <script type="text/javascript" src="assets/javascript/moment.js"></script>
+<!--App Javascript File --> 
 <script type="text/javascript" src="assets/javascript/app.js"></script>
 
 </body>
