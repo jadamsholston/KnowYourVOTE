@@ -83,6 +83,8 @@ a:hover, a:focus {
 }
 .rep-image {
     height: auto;
-    max-width:250px;
     width:250px;
+}
+.inactive {
+    display:none;
 }
