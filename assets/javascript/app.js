@@ -137,6 +137,11 @@ $('#close-sign').on("click", function () {
     $("#signInModal").modal("hide");
     $("#loginModal").modal("show");
 });
+//This function is for closing the password Modal
+$('#close-password').on("click", function () {
+    $("#passwordModal").modal("hide");
+    $("#loginModal").modal("show");
+});
 //This function is for changing to login Modal from Sign Up Modal.
 $('#close-up').on("click", function () {
     $("#signUpModal").modal("hide");
@@ -173,10 +178,37 @@ $("#submit-sign").on("click", function () {
                 $("#errorMessage").empty();
                 $("#signInModal").modal("hide");
                 $("#loginModal").modal("show");
-            });
-            $('#password-sign').on("click", function () {
-                
-            });
+            });           
+        }
+    });
+});
+//This function is for going to Password Modal from Forgot password button
+$('#passwordSign').on("click", function () {
+    $("#signInModal").modal("hide")
+    $("#password-form").show(); 
+    $("#close-password").show(); 
+    $("#passwordModal").modal("show")
+});
+//This function is for sending email to user to reset password
+$('#submit-password').on("click", function () {      
+    var email = $("#email-password").val();
+    authorize.sendPasswordResetEmail(email).then(function () {
+        $("#passwordModal").modal("hide")
+    }).catch(function (error) {
+        var errorCode = error.code,
+            errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+
+        if (errorMessage) {
+            $("#errorPassword").empty();
+            $("#password-form").css("display", "none");
+            $("#errorPassword").append("<p class='text-center'>" + errorMessage + " Please try again.</p>")
+            $('.closeBtn').on("click", function () {
+                $(".closeBtn").css("display", "none");
+                $("#errorPassword").empty();
+                $("#loginModal").modal("show");
+            });           
         }
     });
 });
