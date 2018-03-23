@@ -333,6 +333,7 @@ var getInformation = function () {
             //console.log(officialIndices)           
             for(var h = 0; h < officialIndices.length; h++) {
                 var index = officialIndices[h]
+                console.log("The index is " + index)
                 var panelGroup = $('<div class="panel-group rep-results">');
                 representatives.append(panelGroup);
                 var panelDefault = $('<div class="panel panel-default">');
@@ -370,7 +371,7 @@ var getInformation = function () {
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
                 var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
-                chevronDown.attr("href", "#collapse" + i);
+                chevronDown.attr("href", "#collapse" + index);
                 chevronDown.attr("data-toggle", "collapse");
                 chevronDown.attr("data-search-term", officialsArray[index].name);
                 chevronDown.attr("hasExpanded", false);
@@ -382,7 +383,7 @@ var getInformation = function () {
                 panelDefault.append(panelHeading);
                 //Expandable Header
                 var panelCollaspe = $('<div class="panel-collapse collapse">');
-                panelCollaspe.attr("id", "collapse" + i);
+                panelCollaspe.attr("id", "collapse" + index);
                 panelDefault.append(panelCollaspe)
                 var panelBody = $('<div class="panel-body">');
                 panelCollaspe.append(panelBody)
@@ -484,15 +485,19 @@ $(document.body).on("click", ".contact-icon", function(event){
             if(channels[i]["type"] === "Twitter") {
                 var span = $('<span>');
                 $("#social-media-container").append(span);
+                var aTag = $('<a>');
+                aTag.attr("href", "http://twitter.com/" + channels[i]["id"])
+                aTag.attr("target", "_blank");
+                span.append(aTag)
                 var twitterIcon = $('<i class="fa fa-twitter fa-3x">');
-                twitterIcon.attr("href", "#");
-                span.append(twitterIcon);
+                aTag.append(twitterIcon);
             }
             if(channels[i]["type"] === "Facebook") {
                 var span = $('<span>');
                 $("#social-media-container").append(span);
                 var facebookIcon = $('<i class="fa fa-facebook fa-3x">');
                 facebookIcon.attr("href", "#");
+                facebookIcon.attr("target", "_blank");
                 span.append(facebookIcon);
             }
         }
