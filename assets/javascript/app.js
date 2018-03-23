@@ -297,29 +297,15 @@ var getInformation = function () {
     // Google Civic API QueryURL
     var civicBaseURL = "https://www.googleapis.com/civicinfo/v2/representatives?key=",
     civicKey = "AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8",
-    params = "&address=",
-    address = $('#addressSearch').val().trim(),
-    zipCode = $('#zipCodeSearch').val().trim(),
-    stateParams = $("#stateSearch").val();
+    params = "&address=" + $('#pac-input').val().trim()
     var representatives = $("#representatives");
-    //append address parameters if field has input in them.
-    if(address) {
-        params += address + " ";
-    }
-    if(zipCode) {
-        params += zipCode + " ";
-    }
-    if(stateParams) {
-        params += stateParams;
-    }
 
     var civicURL = civicBaseURL + civicKey + params;
 
     console.log(civicURL);
 
     // Clears all of the text-boxes
-    $('#addressSearch').val('');
-    $('#zipCodeSearch').val('');
+    $('#pac-input').val('');
     $('#representatives').empty(); 
     $.ajax({
         url: civicURL,
@@ -387,14 +373,23 @@ var getInformation = function () {
                 panelDefault.append(panelCollaspe)
                 var panelBody = $('<div class="panel-body">');
                 panelCollaspe.append(panelBody)
+                var panelBodyRow = $('<div class="row">');
+                panelBody.append(panelBodyRow);
+                var panelBodyPictureColumn = $('<div class="col-sm-3">');
+                panelBodyRow.append(panelBodyPictureColumn);
+                var panelBodyNewsColumn = $('<div class="col-sm-9">');
+                panelBodyNewsColumn.attr("id", "repResultsPanelBody" + index);
+                chevronDown.attr("data-news-article-target", "repResultsPanelBody" + index);
+                panelBodyRow.append(panelBodyNewsColumn);
+
                 //HTML for panel body
                 if(officialsArray[index].photoUrl) {
-                    panelBody.append($('<img src="' + officialsArray[index].photoUrl + '" class="img-responsive img-thumbnail float-left rep-image">'))
+                    panelBodyPictureColumn.append($('<img src="' + officialsArray[index].photoUrl + '" class="img-responsive img-thumbnail float-left rep-image">'))
                 }
                 else {
                     //Add a placeholder image that says No Image Found
                     var placeholderImg = "./assets/images/Placeholder-image.jpg"
-                    panelBody.append($('<img src="' + placeholderImg + '" class="img-responsive img-thumbnail float-left rep-image">'))
+                    panelBodyPictureColumn.append($('<img src="' + placeholderImg + '" class="img-responsive img-thumbnail float-left rep-image">'))
                 }
             
             }
@@ -411,13 +406,17 @@ $(document.body).on("click", ".article-chevron", function (event) {
     }
     $(this).attr("hasExpanded", "true");
     console.log(typeof $(this).attr("hasExpanded"));
+    var targetContainerID = $(this).attr("data-news-article-target");
+    console.log(targetContainerID);
+    var targetContainer = $("#" + targetContainerID);
+    //console.log(targetContainer.html());
+    targetContainer.empty();
     // News API queryURL
     var newsBaseURL = "https://newsapi.org/v2/everything?q=",
         repParams = $(this).attr("data-search-term"),
-        stateParams = "&" + $("#stateSearch").val(),
         newsKey = "&apiKey=672f8d40b47842c3bd2ac11a4f688a15";
 
-    var newsURL = newsBaseURL + repParams + stateParams + newsKey;
+    var newsURL = newsBaseURL + repParams + newsKey;
 
     console.log(newsURL);
 
@@ -425,8 +424,27 @@ $(document.body).on("click", ".article-chevron", function (event) {
         url: newsURL,
         method: "GET"
     }).then(function (newsResponse) {
-
-        console.log(newsResponse);
+        var articles = newsResponse.articles;
+        console.log(newsResponse)
+        if(articles.length) {
+            for(var i = 0; i < 5; i++) {
+                if(articles[i]) {
+                    console.log(articles[i]);
+                } else {
+                    console.log("Blank")
+                }
+            }
+        } else {
+            var noResultsFound = $('<h4 class="display-4">').text("No News Stories Found");
+            targetContainer.append(noResultsFound);
+        }
+        var poweredBy = $('<p class="text-muted align-right">').text("Powered By ");
+        targetContainer.append(poweredBy);
+        var aTagLink = $('<a>');
+        aTagLink.attr("href", "https://newsapi.org/");
+        aTagLink.attr("target", "_blank");
+        aTagLink.text("NewsAPI");
+        poweredBy.append(aTagLink);
     });
 })
 $(document.body).on("click", ".contact-icon", function(event){
