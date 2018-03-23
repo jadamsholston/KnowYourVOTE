@@ -495,10 +495,12 @@ $(document.body).on("click", ".contact-icon", function(event){
             if(channels[i]["type"] === "Facebook") {
                 var span = $('<span>');
                 $("#social-media-container").append(span);
+                var aTag = $('<a>');
+                aTag.attr("href", "http://facebook.com/" + channels[i]["id"]);
+                aTag.attr("target", "_blank");
+                span.append(aTag)
                 var facebookIcon = $('<i class="fa fa-facebook fa-3x">');
-                facebookIcon.attr("href", "#");
-                facebookIcon.attr("target", "_blank");
-                span.append(facebookIcon);
+                aTag.append(facebookIcon);
             }
         }
     }
@@ -521,7 +523,8 @@ $(document.body).on("click", ".contact-icon", function(event){
     } else {
         var aTag = $('<a>');
         aTag.attr("href", urls[0])
-        aTag.text(urls[0]);
+        aTag.attr("target", "_blank");
+        aTag.append($('<i class="fa fa-external-link-square">'))
         $("#modal-contact-address-website").append(aTag);
     }
     console.log(address);
