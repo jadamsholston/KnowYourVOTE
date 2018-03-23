@@ -31,8 +31,8 @@ database.ref().on("value", function (snapshot) {
             userObject = user;//get the returned object for the auth, which has the logged in user's information, namely uid
             userLoggedIn = true;//used below to state user is logged in and to proceed to next page
             $("#welcomeModal").modal("show");
-            $(".modal-body").append("<p> Welcome back, " + databaseObject.users[userObject.uid].name + ", Let's get started! Click to close.</p>");
-            $(".modal-footer").append("<button class='btn btn-primary closeBtn'> Close </button>")
+            $("#welcome-body").append("<p> Welcome back, " + databaseObject.users[userObject.uid].name + ", Let's get started! Click to close.</p>");
+            $("#welcome-footer").append("<button class='btn btn-primary closeBtn'> Close </button>")
             $("#logIn").css("display", "none");
             $(".nav-pills").append("<li><a id='logOut' href='#logOut'>Log Out </a></li>")  
             $('.closeBtn').on("click", function () {
