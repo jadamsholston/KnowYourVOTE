@@ -176,7 +176,7 @@
                         <form role="form">                            
                             <div class="form-group">
                                 <label for="name">Address</label>
-                                <input type="text" class="form-control" id="addressSearch">
+                                <input type="text" class="form-control" id="pac-input">
                             </div>
                             <div class="form-group">
                                 <label for="name">City</label>
@@ -276,17 +276,21 @@
             <strong class="footer-block">42 Wallaby Way, Sydney &copy 2018</strong>
         </div>
     </div>
+<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 
     <script>
-    function activatePlacesSearch (){
-        var input = document.getElementById("addressSearch");
-        var autocomplete = new google.maps.places.Autocomplete(input);  
-    }
+
+
+        function foobar() {
+
+            var input = document.getElementById('pac-input');
+
+            var autocomplete = new google.maps.places.Autocomplete(input);
+        }
     </script>
-<!-- Google Map API -- >
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8&libraries=places"></script>
-<!-- Firebase Reference -->
-<script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9croCTK4cWvy6I2Zz6VAllN_cufOQkp8&libraries=places&callback=foobar"
+        async defer></script>
+
 <!-- JQuery --> 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
