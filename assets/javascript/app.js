@@ -524,7 +524,7 @@ $(document.body).on("click", ".contact-icon", function(event){
         var aTag = $('<a>');
         aTag.attr("href", urls[0])
         aTag.attr("target", "_blank");
-        aTag.append($('<i class="fa fa-external-link-square">'))
+        aTag.append($('<i class="fa fa-external-link-square fa-3x">'))
         $("#modal-contact-address-website").append(aTag);
     }
     console.log(address);
