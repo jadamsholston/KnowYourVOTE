@@ -83,15 +83,9 @@ a:hover, a:focus {
 #footer {
     bottom: 0;
     width: 100%;
-   
     height: 50px;
-    
     font-size: 65px;
-    position: absolute;
-   
-    
-   
-    
+    position: relative;
 }
 .footer-block {
     margin: 20px 0;
