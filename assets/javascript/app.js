@@ -264,7 +264,6 @@ var getInformation = function () {
                 var nameUpper = officialsArray[index].name.toUpperCase();
                 nameStrong.text(nameUpper);
                 panelTitle.append(nameStrong);
-                panelTitle.append(" " + position + " ");
                 if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
                     var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact" data-target="#contactModal" data-toggle="modal">');
                     if(officialsArray[index].channels) {
@@ -286,6 +285,8 @@ var getInformation = function () {
                 }
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
+                panelTitle.append("<h6>" + position.toUpperCase() + "</h6> ");
+
                 var chevronDown = $('<button class="btn btn-primary">');
                 chevronDown.attr("href", "#collapse" + index);
                 chevronDown.attr("data-toggle", "collapse");

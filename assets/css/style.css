@@ -69,6 +69,12 @@ a:hover, a:focus {
 .article-chevron:hover {
     cursor: pointer;
 }
+.fa-envelope-o, .fa-twitter {
+    margin-left: 20px;
+}
+.fa-envelope-o:hover {
+    color: red;
+}
 
 #footer {
     bottom: 0;
