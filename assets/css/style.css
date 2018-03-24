@@ -8,7 +8,6 @@
     display: inline;
     background: black
 }
- 
 #ex-navbar-collapse {
     position: absolute;
     top: 0;
@@ -26,10 +25,10 @@
     align-items: center;
 }
 a {
-    color: red;
+    color: #e51b22;
 }
 a:hover, a:focus {
-    color: blue
+    color: #242863;
 }
  
 
@@ -71,10 +70,15 @@ a:hover, a:focus {
 #footer {
     bottom: 0;
     width: 100%;
-    position: relative;
-    height: 150px;
+   
+    height: 50px;
     background-color: black;
     font-size: 65px;
+    position: absolute;
+   
+    
+   
+    
 }
 .footer-block {
     margin: 20px 0;
@@ -84,7 +88,7 @@ a:hover, a:focus {
     width: 40px;
     height: 40px;
     text-align: center;
-    color: red;
+    color:#e51b22;
     position: fixed;
     bottom: 15px;
     right: 15px;
@@ -92,7 +96,7 @@ a:hover, a:focus {
     font-size: 25px;
     padding: 0 !important;
     opacity: 1;
-    background: blue;
+    background:#242863;
     line-height: 40px;
     transition: all 0.4s
 
