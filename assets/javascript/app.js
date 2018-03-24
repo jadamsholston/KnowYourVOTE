@@ -426,12 +426,17 @@ $(document.body).on("click", ".article-chevron", function (event) {
     }).then(function (newsResponse) {
         var articles = newsResponse.articles;
         console.log(newsResponse)
+        targetContainer.append($('<h3 class="display-3">').text("Recent Articles"));
         if(articles.length) {
+            var buttonGroup = $('<div class="btn-group-vertical col-sm-12" role="group" aria-label="News Articles">')
+            targetContainer.append(buttonGroup);
             for(var i = 0; i < 5; i++) {
                 if(articles[i]) {
-                    console.log(articles[i]);
-                } else {
-                    console.log("Blank")
+                    var articleLink = $('<a class="btn btn-primary news-button" role="button">');
+                    articleLink.attr("href", articles[i]["url"]);
+                    articleLink.attr("target", "_blank");
+                    articleLink.text(articles[i]["title"]);
+                    buttonGroup.append(articleLink);
                 }
             }
         } else {
@@ -560,4 +565,4 @@ $("#runSearch").on("click", function(event){
         getInformation();
         return;
     }
-}); 
+});
