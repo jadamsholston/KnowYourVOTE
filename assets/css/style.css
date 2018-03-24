@@ -6,7 +6,10 @@
 }
 .navbar-toggle {
     display: inline;
-    background: black
+    background: black;
+}
+.navbar-default .navbar-toggle {
+    border-color:gray;
 }
 #ex-navbar-collapse {
     position: absolute;
@@ -72,7 +75,7 @@ a:hover, a:focus {
     width: 100%;
    
     height: 50px;
-    background-color: black;
+    
     font-size: 65px;
     position: absolute;
    
