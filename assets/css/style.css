@@ -80,11 +80,11 @@ a:hover, a:focus {
     color: red;
 }
 
-#footer {
+.footer {
     bottom: 0;
     width: 100%;
     height: 50px;
-    font-size: 65px;
+    font-size: 35px;
     position: relative;
 }
 .footer-block {

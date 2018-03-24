@@ -286,6 +286,8 @@ var getInformation = function () {
                 }
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
+                panelTitle.append("<h6>" + position + "</h6>")
+                
                 var chevronDown = $('<a class="article-chevron">');
                 chevronDown.attr("href", "#collapse" + index);
                 chevronDown.attr("data-toggle", "collapse");
