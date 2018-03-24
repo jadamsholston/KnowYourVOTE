@@ -286,7 +286,7 @@ var getInformation = function () {
                 }
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
-                var chevronDown = $('<i class="fa fa-chevron-down article-chevron">');
+                var chevronDown = $('<button class="btn btn-primary">');
                 chevronDown.attr("href", "#collapse" + index);
                 chevronDown.attr("data-toggle", "collapse");
                 chevronDown.attr("data-search-term", officialsArray[index].name + " " + civicResponse.normalizedInput.state);
