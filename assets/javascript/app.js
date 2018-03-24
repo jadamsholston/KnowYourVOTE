@@ -266,7 +266,7 @@ var getInformation = function () {
                 panelTitle.append(nameStrong);
                 panelTitle.append(" " + position + " ");
                 if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
-                    var contactIcon =  $('<i class="fa fa-envelope-o contact-icon" title="Contact" data-target="#contactModal" data-toggle="modal">');
+                    var contactIcon =  $('<a class="contact-icon" title="Contact" data-target="#contactModal" data-toggle="modal">');
                     if(officialsArray[index].channels) {
                         contactIcon.attr("data-contact-channels", JSON.stringify(officialsArray[index].channels));
                     }
@@ -282,15 +282,17 @@ var getInformation = function () {
                     if(officialsArray[index].emails) {
                         contactIcon.attr("data-contact-emails", JSON.stringify(officialsArray[index].emails));
                     }
+                    contactIcon.append($('<i class="fa fa-envelope-o">'));
                     panelTitle.append(contactIcon) 
                 }
                 var spanIcon = $('<span class="pull-right">');
                 panelTitle.append(spanIcon);
-                var chevronDown = $('<button class="btn btn-primary">');
+                var chevronDown = $('<a class="article-chevron">');
                 chevronDown.attr("href", "#collapse" + index);
                 chevronDown.attr("data-toggle", "collapse");
                 chevronDown.attr("data-search-term", officialsArray[index].name + " " + civicResponse.normalizedInput.state);
                 chevronDown.attr("hasExpanded", false);
+                chevronDown.append('<i class="fa fa-chevron-down">')
                 spanIcon.append(chevronDown);
                 
                 //Append Panel Title to Panel Heading

@@ -66,10 +66,13 @@ a:hover, a:focus {
     text-shadow:none;
     color:black;
 }
+.article-chevron {
+    color:black;
+}
 .article-chevron:hover {
     cursor: pointer;
+    color:black;
 }
-
 #footer {
     bottom: 0;
     width: 100%;
@@ -104,9 +107,12 @@ a:hover, a:focus {
     transition: all 0.4s
 
 }
-
+.contact-icon {
+    color:black;
+}
 .contact-icon:hover {
     cursor:pointer;
+    color:black;
 }
 .rep-image {
     height: auto;
