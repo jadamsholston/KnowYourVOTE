@@ -281,6 +281,7 @@ var getInformation = function () {
                     if(officialsArray[index].emails) {
                         contactIcon.attr("data-contact-emails", JSON.stringify(officialsArray[index].emails));
                     }
+                    contactIcon.attr("href", "#collapse" + index);
                     contactIcon.append($('<i class="fa fa-envelope-o">'));
                     panelTitle.append(contactIcon) 
                 }
