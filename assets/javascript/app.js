@@ -358,7 +358,7 @@ $(document.body).on("click", ".article-chevron", function (event) {
         console.log(newsResponse)
         targetContainer.append($('<h3 class="display-3">').text("Recent Articles"));
         if(articles.length) {
-            var buttonGroup = $('<div class="btn-group-vertical col-sm-12" role="group" aria-label="News Articles">')
+            var buttonGroup = $('<div class="btn-group-vertical" role="group" aria-label="News Articles">')
             targetContainer.append(buttonGroup);
             for(var i = 0; i < 5; i++) {
                 if(articles[i]) {
