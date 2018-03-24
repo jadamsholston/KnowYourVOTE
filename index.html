@@ -121,16 +121,16 @@
                 </p>
                 <ul class="nav nav-pills nav-stacked">
                     <li>
-                        <a id="home" href="#home">Home</a>
+                        <a class="nav-link js-scroll-trigger">Home</a>
                     </li>
                     <li>
-                        <a id="search" href="#search">Search Officials</a>
+                        <a class="nav-link js-scroll-trigger" href="#search">Search Officials</a>
                     </li>
                     <li>
-                        <a id="contact" href="#contact">Contact</a>
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                     </li>
                     <li>
-                        <a id="logIn" href="#logIn">Log In</a>
+                        <a id="logIn" class="nav-link js-scroll-trigger" href="#logIn">Log In</a>
                     </li>                    
                 </ul>
             </div>
@@ -192,7 +192,7 @@
                 <div class="panel" id="titleBox">
                     <div class="panel-heading">
                         <h2 class="panel-title" style="text-align: center">
-                            <strong>Government Officials</strong>
+                            <strong id= "#search">Government Officials</strong>
                         </h2>
                     </div>
                     <div class="panel-body">
@@ -257,13 +257,22 @@
             </div>
         </div>
     </div>
+
+    <Section id= "contact" >
     <div id="footer" class="footer navbar-sticky-bottom text-center">
         <div class="container" style="text-align: center">
-            <strong class="footer-block">42 Wallaby Way, Sydney &copy 2018</strong>
+            <strong class="footer-block">&copy 2018</strong>
+            <i class="fa fa-envelope-o" href="knowyourvote2018@gmail.com"></i></a>
+            <i class="fa fa-external-link"></i>
+            <i class="fa fa-phone-square"></i>
         </div>
     </div>
 <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
 
+    <button id="scrollTop" class="btn-default" style="display: block;" >
+        <a href="#home"><i class="fa fa-angle-up"></i></a>
+    </button>
+    </Section>
     <script>
 
 
