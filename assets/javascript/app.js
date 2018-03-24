@@ -264,7 +264,6 @@ var getInformation = function () {
                 var nameUpper = officialsArray[index].name.toUpperCase();
                 nameStrong.text(nameUpper);
                 panelTitle.append(nameStrong);
-                panelTitle.append(" " + position + " ");
                 if(officialsArray[index].channels || officialsArray[index].address || officialsArray[index].phones || officialsArray[index].urls)   {
                     var contactIcon =  $('<a class="contact-icon" title="Contact" data-target="#contactModal" data-toggle="modal">');
                     if(officialsArray[index].channels) {

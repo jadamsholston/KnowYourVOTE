@@ -73,6 +73,13 @@ a:hover, a:focus {
     cursor: pointer;
     color:black;
 }
+.fa-envelope-o, .fa-twitter {
+    margin-left: 20px;
+}
+.fa-envelope-o:hover {
+    color: red;
+}
+
 #footer {
     bottom: 0;
     width: 100%;
