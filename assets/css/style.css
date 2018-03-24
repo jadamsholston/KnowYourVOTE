@@ -17,7 +17,7 @@
     z-index: 3;    
 }
 .ex-navbar-styled {
-    padding: 1em 0;
+    /* padding: 1em 0; */
     background: whitesmoke;
     backface-visibility: inherit;
     overflow-x: hidden;
@@ -87,8 +87,4 @@ a:hover, a:focus {
 }
 .inactive {
     display:none;
-}
-.news-button {
-    margin-bottom:5px;
-    white-space: normal;
 }
