@@ -3,7 +3,6 @@
 ##
 Looking for a place to learn more about your Federal, State, and Local Representatives in your area? 
 
-####
 Look no further! Know Your Vote is a web based application that allows a user to search a specific address and see who represents that area. 
 
 Inside the search results, the user can connect immediately with the representative through phone number, social media links, and a direct connection to their website. 
@@ -26,7 +25,7 @@ Whether you are looking for representatives in your current area or planning to 
 * Bootstrap Modals 
 * Mobile Responsive
 
-###### Coding Requirements 
+#### Coding Requirements 
 
 * Must use at least two APIs
 * Must use AJAX to pull data
@@ -36,7 +35,8 @@ Whether you are looking for representatives in your current area or planning to 
 * Must NOT use alerts, confirms, or prompts (look into modals!)
 * Must have some sort of repeating element (table, columns, etc)
 * Must use Bootstrap or Alternative CSS Framework
-* Must be Deployed (Github Pages)•Must have User Input Validation
+* Must be Deployed (Github Pages)
+* Must have User Input Validation
 
 ###### Team Noodles Project 
 
